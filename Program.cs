@@ -11,6 +11,7 @@ namespace DungeonExplorer
         static void Main(string[] args)
         {
             //hello
+
             Game game = new Game();
             game.Start();
             Console.WriteLine("Waiting for your Implementation");

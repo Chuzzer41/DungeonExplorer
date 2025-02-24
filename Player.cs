@@ -1,11 +1,48 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
     public class Player
     {
-        public string Name { get; private set; }
-        public int Health { get; private set; }
+        public string Name 
+        { 
+            get {  return Name; }
+
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    Console.WriteLine("The name that has been entered is invaild. Defaulting to DefaultPlayer");
+                    Name = "DefaultPlayer";
+                }
+                else
+                {
+                    Name = value;
+                }
+            } 
+        
+        
+        }
+        public int Health
+        {
+            get { return Health; }
+
+            set
+            {
+                if (value < 1)
+                {
+                    Health = 0;
+                }
+                else
+                {
+                    Health = value;
+                }
+            }
+
+
+        }
+
         private List<string> inventory = new List<string>();
 
         public Player(string name, int health) 
