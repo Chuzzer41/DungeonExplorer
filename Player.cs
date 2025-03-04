@@ -39,8 +39,6 @@ namespace DungeonExplorer
                     Health = value;
                 }
             }
-
-
         }
 
         private List<string> inventory = new List<string>();
