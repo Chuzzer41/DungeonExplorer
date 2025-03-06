@@ -21,9 +21,9 @@ namespace DungeonExplorer
                     Name = value;
                 }
             } 
-        
-        
         }
+
+
         public int Health
         {
             get { return Health; }
