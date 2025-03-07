@@ -5,6 +5,18 @@ namespace DungeonExplorer
 {
     public class Player
     {
+
+
+        private string name;
+        private int health;
+        private List<string> inventory;
+
+        public Player(string name, int health, List<string> inventory)
+        {
+            name = Name;
+            health = Health;
+            inventory = Inventory;
+        }
         public string Name 
         { 
             get {  return Name; }
@@ -41,13 +53,13 @@ namespace DungeonExplorer
             }
         }
 
-        private List<string> inventory = new List<string>();
-
-        public Player(string name, int health) 
+        public List<string> Inventory
         {
-            Name = name;
-            Health = health;
+            get { return Inventory; }
+
+            set { Inventory = value; }
         }
+
         public void PickUpItem(string item)
         {
 
