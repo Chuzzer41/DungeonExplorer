@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Media;
+using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
@@ -10,10 +11,9 @@ namespace DungeonExplorer
 
         private Player Player;
         private int RoomNumber;
-        private static Random rnd = new Random();
         public Game()
         {
-            Player = new Player("", 100, new System.Collections.Generic.List<string>());
+            Player = new Player("", 100, new List<string>());
             currentRoom = Room.RandomRoom();
             RoomNumber = 0;
         }
@@ -49,6 +49,24 @@ namespace DungeonExplorer
            
         }
 
+        public void PlayersHealth()
+        {
+            Console.WriteLine("Would you like to see your health? yes or no");
+            string input = Console.ReadLine().ToLower();
+            switch(input)
+            {
+                case "yes":
+                    Console.WriteLine("Your health is " + Player.Health);
+                    break;
+                case "no":
+                    break;
+                default:
+                    Console.WriteLine("Invalid input. Press any button to continue.");
+                    Console.ReadKey();
+                    break;
+            }
+        }
+
         public void Start()
         {
             bool playing = true;
@@ -58,21 +76,24 @@ namespace DungeonExplorer
                 Console.WriteLine("Enter your name:");
                 string name = Console.ReadLine();
                 Player.Name = name;
-                player.Health = 100;
-                player.Inventory = new System.Collections.Generic.List<string>();
+                Player.Health = 100;
+                Player.Inventory = new List<string>();
 
                 Console.WriteLine("Add introduction to game");
 
                 playing = false;
-                while (player.Health > 0 && RoomNumber < 10)
+                while (Player.Health > 0 && RoomNumber < 10)
                 {
                     Console.WriteLine("You are in room " + RoomNumber);
+
+
                     PlayersDecision();
+                    PlayersHealth();
 
 
                 }
 
-                if (player.Health <= 0)
+                if (Player.Health <= 0)
                 {
                     Console.WriteLine("You have died.");
                 }

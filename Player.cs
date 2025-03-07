@@ -11,7 +11,7 @@ namespace DungeonExplorer
         private int health;
         private List<string> inventory;
 
-        public Player(string name, int health, List<string> inventory)
+        public Player(string Name, int Health, List<string> Inventory)
         {
             name = Name;
             health = Health;
@@ -19,18 +19,18 @@ namespace DungeonExplorer
         }
         public string Name 
         { 
-            get {  return Name; }
+            get {  return name; }
 
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
                     Console.WriteLine("The name that has been entered is invaild. Defaulting to DefaultPlayer");
-                    Name = "DefaultPlayer";
+                    name = "DefaultPlayer";
                 }
                 else
                 {
-                    Name = value;
+                    name = value;
                 }
             } 
         }
@@ -38,26 +38,26 @@ namespace DungeonExplorer
 
         public int Health
         {
-            get { return Health; }
+            get { return health; }
 
             set
             {
                 if (value < 1)
                 {
-                    Health = 0;
+                    health = 0;
                 }
                 else
                 {
-                    Health = value;
+                    health = value;
                 }
             }
         }
 
         public List<string> Inventory
         {
-            get { return Inventory; }
+            get { return inventory; }
 
-            set { Inventory = value; }
+            set { inventory = value; }
         }
 
         public void PickUpItem(string item)
