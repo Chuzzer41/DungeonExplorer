@@ -16,7 +16,6 @@ namespace DungeonExplorer
             Player = new Player("", 100, new System.Collections.Generic.List<string>());
             currentRoom = Room.RandomRoom();
             RoomNumber = 0;
-
         }
 
         public void PlayersDecision()
