@@ -7,7 +7,7 @@ namespace DungeonExplorer
         private string description;
 
         public const string SmallMonster = "Small Monster";
-        public const string MediumMonster = "Medium Monster";
+        public const string RegularMonster = "Regular Monster";
         public const string BigMonster = "Big Monster";
         public const string empty = "empty";
         private static Random rnd = new Random();
@@ -25,16 +25,20 @@ namespace DungeonExplorer
 
         public static Room RandomRoom()
         {
-            int random = rnd.Next(0, 4);
+            int random = rnd.Next(0, 8);
             switch (random)
             {
                 case 0:
-                    return new Room(SmallMonster);
                 case 1:
-                    return new Room(MediumMonster);
                 case 2:
-                    return new Room(BigMonster);
+                    return new Room(SmallMonster);
                 case 3:
+                case 4:
+                    return new Room(RegularMonster);
+                case 5:
+                    return new Room(BigMonster);
+                case 6:
+                case 7:
                     return new Room(empty);
                 default:
                     return new Room(empty);
@@ -53,8 +57,8 @@ namespace DungeonExplorer
                     RoomNumber++;
                     break;
 
-                case MediumMonster:
-                    Console.WriteLine("You see a medium monster in the room.");
+                case RegularMonster:
+                    Console.WriteLine("You see a regular monster in the room.");
                     int damage2 = rnd.Next(10,20);
                     player.Health -= damage2;
                     RoomNumber++;
