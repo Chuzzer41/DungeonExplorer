@@ -11,6 +11,10 @@ namespace DungeonExplorer
 
         private Player Player;
         private int RoomNumber;
+
+        public const string SmallHealthPotion = "Small Health Potion";
+        public const string LargeHealthPotion = "Large Health Potion";
+        public const string Bandage = "Bandage";
         public Game()
         {
             Player = new Player("", 100, new List<string>());
@@ -30,16 +34,19 @@ namespace DungeonExplorer
                 case "forward":
                     nextRoom = Room.RandomRoom();
                     nextRoom.GetRoomDescription(Player, ref RoomNumber);
+                    ItemProbability();
                     break;
 
                 case "left":
                     nextRoom = Room.RandomRoom();
                     nextRoom.GetRoomDescription(Player, ref RoomNumber);
+                    ItemProbability();
                     break;
 
                 case "right":
                     nextRoom = Room.RandomRoom();
                     nextRoom.GetRoomDescription(Player, ref RoomNumber);
+                    ItemProbability();
                     break;
 
                 default:
@@ -47,6 +54,105 @@ namespace DungeonExplorer
                     break;
             }
            
+        }
+
+        public void ItemProbability()
+        {
+            Random rnd = new Random();
+            int random = rnd.Next(0, 5);
+            switch (random)
+            {
+                case 0:
+                    Player.Inventory.Add(SmallHealthPotion);
+                    Console.WriteLine("You have found a small health potion.");
+                    break;
+                case 1:
+                    Player.Inventory.Add(LargeHealthPotion);
+                    Console.WriteLine("You have found a large health potion.");
+                    break;
+                case 2:
+                    Player.Inventory.Add(Bandage);
+                    Console.WriteLine("You have found a bandage.");
+                    break;
+                case 3:
+                case 4:
+                    break;
+            }
+        }
+
+        public void ItemUse()
+        {
+            Console.WriteLine("Which item would you like to use: bandage, small or large health potion (b, s, l)");
+            string item = Console.ReadLine().ToLower();
+            switch (item)
+            {
+                case "s":
+                    if (Player.Inventory.Contains(SmallHealthPotion))
+                    {
+                        if (Player.Health > 90)
+                        {
+                            Player.Health += 10;
+                            Player.Inventory.Remove(SmallHealthPotion);
+                            Console.WriteLine("You have used a small health potion.");
+                            Console.WriteLine("Your health is now " + Player.Health);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your health is too high.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have a small health potion.");
+                    }
+                    break;
+                case "l":
+                    if (Player.Inventory.Contains(LargeHealthPotion))
+                    {
+                        if (Player.Health > 20)
+                        {
+                            Player.Health += 20;
+                            Player.Inventory.Remove(LargeHealthPotion);
+                            Console.WriteLine("You have used a large health potion.");
+                            Console.WriteLine("Your health is now " + Player.Health);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your health is too high.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have a large health potion.");
+                    }
+                    break;
+                case "b":
+                    if (Player.Inventory.Contains(Bandage))
+                    {
+                        if (Player.Health > 95)
+                        {
+                            Player.Health += 5;
+                            Player.Inventory.Remove(Bandage);
+                            Console.WriteLine("You have used a bandage.");
+                            Console.WriteLine("Your health is now " + Player.Health);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your health is too high.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You do not have a bandage.");
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Invalid input. Press any button to continue.");
+                    Console.ReadKey();
+                    break;
+            }
         }
 
         public void PlayersHealth()
@@ -67,6 +173,42 @@ namespace DungeonExplorer
             }
         }
 
+        public void PlayersInventory()
+        {
+            Console.WriteLine("Would you like to see your inventory? yes or no");
+            string input = Console.ReadLine().ToLower();
+            switch (input)
+            {
+                case "yes":
+                    Console.WriteLine("Your inventory contains: ");
+                    Console.WriteLine(Player.InventoryContents());
+                    break;
+                case "no":
+                    break;
+                default:
+                    Console.WriteLine("Invalid input. Press any button to continue.");
+                    Console.ReadKey();
+                    break;
+            }
+        }
+
+        public void DecisionToUseItem()
+        {
+            Console.WriteLine("Would you like to use an item? yes or no");
+            string input = Console.ReadLine().ToLower();
+            switch (input)
+            {
+                case "yes":
+                    ItemUse();
+                    break;
+                case "no":
+                    break;
+                default:
+                    Console.WriteLine("Invalid input. Press any button to continue.");
+                    Console.ReadKey();
+                    break;
+            }
+        }
         public void Start()
         {
             bool playing = true;
@@ -91,6 +233,8 @@ namespace DungeonExplorer
 
                     PlayersDecision();
                     PlayersHealth();
+                    PlayersInventory();
+                    DecisionToUseItem();
 
 
                 }
@@ -101,7 +245,10 @@ namespace DungeonExplorer
                 }
                 else
                 {
-                    Console.WriteLine("You have won! Con");
+                    Console.WriteLine("You have won!");
+                    Console.WriteLine("You have made it through all the rooms.");
+                    Console.WriteLine("You have survived the monsters.");
+                    Console.WriteLine("Congratulations");
                 }
             }
         }

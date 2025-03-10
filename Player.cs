@@ -62,10 +62,14 @@ namespace DungeonExplorer
 
         public void PickUpItem(string item)
         {
-
+            Inventory.Add(item);
         }
         public string InventoryContents()
         {
+            if (inventory.Count == 0)
+            {
+                return "Nothing.";
+            }
             return string.Join(", ", inventory);
         }
     }
