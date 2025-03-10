@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Media;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 
 namespace DungeonExplorer
 {
@@ -11,6 +12,7 @@ namespace DungeonExplorer
 
         private Player Player;
         private int RoomNumber;
+        private int TotalRoomNumber;
 
         public const string SmallHealthPotion = "Small Health Potion";
         public const string LargeHealthPotion = "Large Health Potion";
@@ -20,13 +22,15 @@ namespace DungeonExplorer
             Player = new Player("", 100, new List<string>());
             currentRoom = Room.RandomRoom();
             RoomNumber = 0;
+            TotalRoomNumber = 5;
         }
 
         public void PlayersDecision()
         {
+            Console.WriteLine();
             Console.WriteLine("Which direction would you like to go: forward, left, right?");
 
-            string input = Console.ReadLine().ToLower();
+            string input = Console.ReadLine().ToLower().Trim();
 
             Room nextRoom;
             switch (input)
@@ -83,7 +87,7 @@ namespace DungeonExplorer
         public void ItemUse()
         {
             Console.WriteLine("Which item would you like to use: bandage, small or large health potion (b, s, l)");
-            string item = Console.ReadLine().ToLower();
+            string item = Console.ReadLine().ToLower().Trim();
             switch (item)
             {
                 case "s":
@@ -158,7 +162,7 @@ namespace DungeonExplorer
         public void PlayersHealth()
         {
             Console.WriteLine("Would you like to see your health? yes or no");
-            string input = Console.ReadLine().ToLower();
+            string input = Console.ReadLine().ToLower().Trim();
             switch(input)
             {
                 case "yes":
@@ -176,7 +180,7 @@ namespace DungeonExplorer
         public void PlayersInventory()
         {
             Console.WriteLine("Would you like to see your inventory? yes or no");
-            string input = Console.ReadLine().ToLower();
+            string input = Console.ReadLine().ToLower().Trim();
             switch (input)
             {
                 case "yes":
@@ -195,7 +199,7 @@ namespace DungeonExplorer
         public void DecisionToUseItem()
         {
             Console.WriteLine("Would you like to use an item? yes or no");
-            string input = Console.ReadLine().ToLower();
+            string input = Console.ReadLine().ToLower().Trim();
             switch (input)
             {
                 case "yes":
@@ -206,6 +210,28 @@ namespace DungeonExplorer
                 default:
                     Console.WriteLine("Invalid input. Press any button to continue.");
                     Console.ReadKey();
+                    break;
+            }
+        }
+
+        public void SelectGameDifficulty()
+        {
+            Console.WriteLine("Please select a game difficulty: easy, medium, hard");
+            string input = Console.ReadLine().ToLower().Trim();
+            switch (input)
+            {
+                case "easy":
+                    TotalRoomNumber = 5;
+                    break;
+                case "medium":
+                    TotalRoomNumber = 10;
+                    break;
+                case "hard":
+                    TotalRoomNumber = 15;
+                    break;
+                default:
+                    Console.WriteLine("Invalid input. Defaulting to easy difficulty.");
+                    TotalRoomNumber = 5;
                     break;
             }
         }
@@ -225,8 +251,10 @@ namespace DungeonExplorer
                 Console.WriteLine("You have to make it through different rooms surviving the attacks from monsters.");
                 Console.WriteLine("If you make it through without losing all your health you win.");
 
+                SelectGameDifficulty();
+
                 playing = false;
-                while (Player.Health > 0 && RoomNumber < 5)
+                while (Player.Health > 0 && RoomNumber < TotalRoomNumber)
                 {
                     Console.WriteLine("You are in room " + (RoomNumber + 1));
 
