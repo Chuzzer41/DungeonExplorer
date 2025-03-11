@@ -52,7 +52,7 @@ namespace DungeonExplorer
                 case SmallMonster:
 
                     RoomDescription();
-                    Console.WriteLine("You see a small monster in the room.");
+                    Console.WriteLine("You battle a small monster.");
                     int damage = rnd.Next(1, 10);
                     player.Health -= damage;
                     RoomNumber++;
@@ -61,7 +61,7 @@ namespace DungeonExplorer
                 case RegularMonster:
 
                     RoomDescription();
-                    Console.WriteLine("You see a regular monster in the room.");
+                    Console.WriteLine("You  battle a regular monster.");
                     int damage2 = rnd.Next(10,20);
                     player.Health -= damage2;
                     RoomNumber++;
@@ -70,7 +70,7 @@ namespace DungeonExplorer
                 case BigMonster:
 
                     RoomDescription();
-                    Console.WriteLine("You see a big monster in the room.");
+                    Console.WriteLine("You battle a big monster.");
                     int damage3 = rnd.Next(20, 30);
                     player.Health -= damage3;
                     RoomNumber++;
@@ -79,7 +79,7 @@ namespace DungeonExplorer
                 case empty:
 
                     RoomDescription();
-                    Console.WriteLine("The room is empty.");
+                    Console.WriteLine("You pass through an empty room.");
                     RoomNumber++;
                     break;
 
