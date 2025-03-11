@@ -25,20 +25,16 @@ namespace DungeonExplorer
 
         public static Room RandomRoom()
         {
-            int random = rnd.Next(0, 8);
+            int random = rnd.Next(0, 4);
             switch (random)
             {
                 case 0:
-                case 1:
-                case 2:
                     return new Room(SmallMonster);
-                case 3:
-                case 4:
+                case 1:
                     return new Room(RegularMonster);
-                case 5:
+                case 2:
                     return new Room(BigMonster);
-                case 6:
-                case 7:
+                case 3:
                     return new Room(empty);
                 default:
                     return new Room(empty);
@@ -61,7 +57,7 @@ namespace DungeonExplorer
                 case RegularMonster:
 
                     RoomDescription();
-                    Console.WriteLine("You  battle a regular monster.");
+                    Console.WriteLine("You battle a regular monster.");
                     int damage2 = rnd.Next(10,20);
                     player.Health -= damage2;
                     RoomNumber++;

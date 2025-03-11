@@ -84,6 +84,8 @@ namespace DungeonExplorer
                     break;
                 case 3:
                 case 4:
+                case 5:
+                case 6:
                     break;
             }
         }
@@ -211,7 +213,7 @@ namespace DungeonExplorer
                     TotalRoomNumber = 10;
                     break;
                 case "hard":
-                    TotalRoomNumber = 15;
+                    TotalRoomNumber = 20;
                     break;
                 default:
                     Console.WriteLine("Invalid input. Defaulting to easy difficulty.");
