@@ -2,6 +2,9 @@
 using System.Media;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Security.Policy;
+using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace DungeonExplorer
 {
@@ -216,11 +219,78 @@ namespace DungeonExplorer
                     break;
             }
         }
+
+        public void IntroductionDescription()
+        {
+            Console.WriteLine("Welcome to the Dungeon Explorer.");
+            Console.WriteLine("Venture into the Dungeon of Darkness an ancient, ever-changing labyrinth.");
+            Console.WriteLine("Make crucial decisions that will impact your journey, with each direction opening new encounters and challenges.");
+            Console.WriteLine("Battle fierce monsters that roam the rooms of the dungeon.");
+            Console.WriteLine("Discover forgotten items left behind by past adventurers, each one helping you stay strong on your journey.");
+            Console.WriteLine("Are you ready for whats to come.Press any key to start your adventure.");
+            Console.ReadKey();
+            Console.WriteLine();
+        }
+
+        public void GameRules()
+        {
+            Console.WriteLine("Would you like to see the rules of the game? (y or n)");
+            string input = Console.ReadLine().ToLower().Trim();
+            Console.WriteLine();
+            switch (input)
+            {
+                case "y":
+                    Console.WriteLine("The rules of the game are:\n");
+                    Console.WriteLine("You will start on 100 health.\n");
+                    Console.WriteLine("You will have to make it through a number of rooms depending on the difficulty.");
+                    Console.WriteLine("Easy - 5 rooms");
+                    Console.WriteLine("Medium - 10 rooms");
+                    Console.WriteLine("Hard - 20 rooms\n");
+                    Console.WriteLine("There are 3 different monsters.");
+                    Console.WriteLine("Small monster - 1-10 damage");
+                    Console.WriteLine("Regular monster - 10-20 damage");
+                    Console.WriteLine("Big monster - 20-30 damage\n");
+                    Console.WriteLine("You will have a chance to find items in the rooms.");
+                    Console.WriteLine("Small health potion - +10 health");
+                    Console.WriteLine("Large health potion - +20 health");
+                    Console.WriteLine("Bandage - +5 health\n");
+                    Console.WriteLine("You will have to make it through all the rooms to win.");
+                    Console.WriteLine("If your health reaches 0 you will die.");
+                    Console.WriteLine("Good luck.");
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey();
+                    Console.WriteLine();
+                    break;
+                case "n":
+                    break;
+                default:
+                    Console.WriteLine("Invalid input. Defaulting to no.");
+                    break;
+            }
+        }
+
+        public void GameOver()
+        {
+            if (Player.Health <= 0)
+            {
+                Console.WriteLine("I'm sorry but you have died to the monsters.");
+            }
+            else
+            {
+                Console.WriteLine("You have won!");
+                Console.WriteLine("You have made it through all the rooms.");
+                Console.WriteLine("You have survived the monsters.");
+                Console.WriteLine("Congratulations");
+            }
+        }
+
+
         public void Start()
         {
             bool playing = true;
             while (playing)
             {
+                IntroductionDescription();
 
                 Console.WriteLine("Please enter your name:");
                 string name = Console.ReadLine();
@@ -228,10 +298,7 @@ namespace DungeonExplorer
                 Player.Health = 100;
                 Player.Inventory = new List<string>();
 
-                Console.WriteLine("Welcome to the Dungeon Explorer game.");
-                Console.WriteLine("You have to make it through different rooms surviving the attacks from monsters.");
-                Console.WriteLine("If you make it through without losing all your health you win.");
-
+                GameRules();
                 SelectGameDifficulty();
 
                 playing = false;
@@ -243,17 +310,7 @@ namespace DungeonExplorer
                     PlayersRoundOptions();
                 }
 
-                if (Player.Health <= 0)
-                {
-                    Console.WriteLine("I'm sorry but you have died to the monsters.");
-                }
-                else
-                {
-                    Console.WriteLine("You have won!");
-                    Console.WriteLine("You have made it through all the rooms.");
-                    Console.WriteLine("You have survived the monsters.");
-                    Console.WriteLine("Congratulations");
-                }
+                GameOver();
             }
         }
     }
