@@ -6,75 +6,88 @@ namespace DungeonExplorer
     {
         private string description;
 
+        // Constants for the different types of rooms
         public const string SmallMonster = "Small Monster";
         public const string RegularMonster = "Regular Monster";
         public const string BigMonster = "Big Monster";
         public const string empty = "empty";
+
         private static Random rnd = new Random();
 
-
+        // Getters and Setters for the description of the room
         public string Description
         {
             get { return description; }
             set { description = value; }
         }
+
+        // Constructor for the Room class and initializes the description of the room
         public Room(string description)
         {
             Description = description;
         }
 
+        // Method to generate a random room with differnet probabilities
         public static Room RandomRoom()
         {
-            int random = rnd.Next(0, 4);
+            int random = rnd.Next(0, 7);
             switch (random)
             {
                 case 0:
-                    return new Room(SmallMonster);
                 case 1:
-                    return new Room(RegularMonster);
+                    return new Room(SmallMonster);
                 case 2:
-                    return new Room(BigMonster);
                 case 3:
+                    return new Room(RegularMonster);
+                case 4:
+                    return new Room(BigMonster);
+                case 5:
+                case 6:
                     return new Room(empty);
                 default:
                     return new Room(empty);
             }
         }
 
+        // Method to get the description of the room and perform an action based on the description
         public void GetRoomDescription(Player player, ref int RoomNumber)
         {
             switch (Description)
             {
+                // If the room contains a small monster, the player battles the monster and takes damage
                 case SmallMonster:
 
-                    RoomDescription();
+                    RoomDescription(); // Calls the RoomDescription method to display a description of the room
                     Console.WriteLine("You battle a small monster.");
                     int damage = rnd.Next(1, 10);
                     player.Health -= damage;
                     RoomNumber++;
                     break;
 
+                // If the room contains a regular monster, the player battles the monster and takes damage
                 case RegularMonster:
 
-                    RoomDescription();
+                    RoomDescription(); // Calls the RoomDescription method to display a description of the room
                     Console.WriteLine("You battle a regular monster.");
                     int damage2 = rnd.Next(10,20);
                     player.Health -= damage2;
                     RoomNumber++;
                     break;
 
+                // If the room contains a big monster, the player battles the monster and takes damage
                 case BigMonster:
 
-                    RoomDescription();
+                    RoomDescription(); // Calls the RoomDescription method to display a description of the room
                     Console.WriteLine("You battle a big monster.");
                     int damage3 = rnd.Next(20, 30);
                     player.Health -= damage3;
                     RoomNumber++;
                     break;
 
+                // If the room is empty, the player passes through the room
                 case empty:
 
-                    RoomDescription();
+                    RoomDescription(); // Calls the RoomDescription method to display a description of the room
                     Console.WriteLine("You pass through an empty room.");
                     RoomNumber++;
                     break;
@@ -87,6 +100,7 @@ namespace DungeonExplorer
 
         }
 
+        // Method to display a description of the room based on the type of room
         public void RoomDescription()
         {
 
@@ -94,7 +108,7 @@ namespace DungeonExplorer
 
             switch (Description)
             {
-
+                // If the room contains a small monster, display a random description of the room with a small monster
                 case SmallMonster:
                     int random1 = rnd.Next(0, 6);
                     switch (random1)
@@ -122,6 +136,7 @@ namespace DungeonExplorer
                     }
                     break;
 
+                // If the room contains a regular monster, display a random description of the room with a regular monster
                 case RegularMonster:
                     int random2 = rnd.Next(0, 6);
                     switch (random2)
@@ -149,6 +164,7 @@ namespace DungeonExplorer
                     }
                     break;
 
+                // If the room contains a big monster, display a random description of the room with a big monster
                 case BigMonster:
                     int random3 = rnd.Next(0, 6);
                     switch (random3)
@@ -176,6 +192,7 @@ namespace DungeonExplorer
                     }
                     break;
 
+                // If the room is empty, display a random description of the empty room
                 case empty:
                     int random4 = rnd.Next(0, 6);
                     switch (random4)
