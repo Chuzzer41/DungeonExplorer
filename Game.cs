@@ -31,6 +31,7 @@ namespace DungeonExplorer
             Console.WriteLine("Which direction would you like to go: forward, left, right?");
 
             string input = Console.ReadLine().ToLower().Trim();
+            Console.WriteLine();
 
             Room nextRoom;
             switch (input)
@@ -93,7 +94,7 @@ namespace DungeonExplorer
                 case "s":
                     if (Player.Inventory.Contains(SmallHealthPotion))
                     {
-                        if (Player.Health > 90)
+                        if (!(Player.Health > 90))
                         {
                             Player.Health += 10;
                             Player.Inventory.Remove(SmallHealthPotion);
@@ -113,7 +114,7 @@ namespace DungeonExplorer
                 case "l":
                     if (Player.Inventory.Contains(LargeHealthPotion))
                     {
-                        if (Player.Health > 20)
+                        if (!(Player.Health > 80))
                         {
                             Player.Health += 20;
                             Player.Inventory.Remove(LargeHealthPotion);
@@ -134,7 +135,8 @@ namespace DungeonExplorer
                 case "b":
                     if (Player.Inventory.Contains(Bandage))
                     {
-                        if (Player.Health > 95)
+                        Console.WriteLine(Player.Health);
+                        if (!(Player.Health > 95))
                         {
                             Player.Health += 5;
                             Player.Inventory.Remove(Bandage);
@@ -158,66 +160,45 @@ namespace DungeonExplorer
                     break;
             }
         }
-
-        public void PlayersHealth()
+        public void PlayersRoundOptions()
         {
-            Console.WriteLine("Would you like to see your health? yes or no");
-            string input = Console.ReadLine().ToLower().Trim();
-            switch(input)
+            while (true)
             {
-                case "yes":
-                    Console.WriteLine("Your health is " + Player.Health);
-                    break;
-                case "no":
-                    break;
-                default:
-                    Console.WriteLine("Invalid input. Press any button to continue.");
-                    Console.ReadKey();
-                    break;
+                Console.WriteLine();
+                Console.WriteLine("Type 'health' to view health");
+                Console.WriteLine("Type 'inventory' to view inventory");
+                Console.WriteLine("Type 'item' to use an item");
+                Console.WriteLine("Press enter to skip");
+
+                string input = Console.ReadLine().ToLower().Trim();
+                Console.WriteLine();
+
+                switch (input)
+                {
+                    case "health":
+                        Console.WriteLine("Your health is " + Player.Health); break;
+                    case "inventory":
+                        Console.WriteLine("Your inventory contains: ");
+                        Console.WriteLine(Player.InventoryContents());
+                        break;
+                    case "item":
+                        ItemUse();
+                        break;
+                    case "":
+                        return;
+                    default:
+                        Console.WriteLine("Invalid input. Press any button to continue.");
+                        Console.ReadKey();
+                        break;
+                }
             }
         }
-
-        public void PlayersInventory()
-        {
-            Console.WriteLine("Would you like to see your inventory? yes or no");
-            string input = Console.ReadLine().ToLower().Trim();
-            switch (input)
-            {
-                case "yes":
-                    Console.WriteLine("Your inventory contains: ");
-                    Console.WriteLine(Player.InventoryContents());
-                    break;
-                case "no":
-                    break;
-                default:
-                    Console.WriteLine("Invalid input. Press any button to continue.");
-                    Console.ReadKey();
-                    break;
-            }
-        }
-
-        public void DecisionToUseItem()
-        {
-            Console.WriteLine("Would you like to use an item? yes or no");
-            string input = Console.ReadLine().ToLower().Trim();
-            switch (input)
-            {
-                case "yes":
-                    ItemUse();
-                    break;
-                case "no":
-                    break;
-                default:
-                    Console.WriteLine("Invalid input. Press any button to continue.");
-                    Console.ReadKey();
-                    break;
-            }
-        }
-
         public void SelectGameDifficulty()
         {
             Console.WriteLine("Please select a game difficulty: easy, medium, hard");
             string input = Console.ReadLine().ToLower().Trim();
+            Console.WriteLine();
+
             switch (input)
             {
                 case "easy":
@@ -258,13 +239,8 @@ namespace DungeonExplorer
                 {
                     Console.WriteLine("You are in room " + (RoomNumber + 1));
 
-
                     PlayersDecision();
-                    PlayersHealth();
-                    PlayersInventory();
-                    DecisionToUseItem();
-
-
+                    PlayersRoundOptions();
                 }
 
                 if (Player.Health <= 0)
