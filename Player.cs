@@ -3,56 +3,16 @@ using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
-    public class Player
+    public class Player : Creature
     {
-        private string name;
-        private int health;
+
         private List<string> inventory;
 
         // Constructor for the Player class and initializes the name, health, and inventory of the player
         public Player(string Name, int Health, List<string> Inventory)
+            : base(Name, Health)
         {
-            name = Name;
-            health = Health;
-            inventory = Inventory;
-        }
-
-        // Getters and Setters for the name, health, and inventory of the player
-        public string Name 
-        { 
-            get {  return name; }
-
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    // If the name is null or empty, set the name to "DefaultPlayer"
-                    Console.WriteLine("The name that has been entered is invaild. Defaulting to DefaultPlayer");
-                    name = "DefaultPlayer";
-                }
-                else
-                {
-                    name = value;
-                }
-            } 
-        }
-
-        // If the health is less than 1 or greater than or equal to 100, set the health to 0 else set the health to the value
-        public int Health
-        {
-            get { return health; }
-
-            set
-            {
-                if (value < 1 && value >= 100)
-                {
-                    health = 0;
-                }
-                else
-                {
-                    health = value;
-                }
-            }
+            this.inventory = Inventory;
         }
 
         // Gets the inventory of the player
@@ -77,6 +37,11 @@ namespace DungeonExplorer
                 return "Nothing.";
             }
             return string.Join(", ", inventory);
+        }
+
+        public override void Attack()
+        {
+            throw new NotImplementedException();
         }
     }
 }
