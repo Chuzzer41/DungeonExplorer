@@ -9,18 +9,17 @@ namespace DungeonExplorer
     public abstract class Item
     {
         public string Name { get; set; }
-        public int HealingValue { get; set; }
-        public Item(string name, int healingValue)
+        public Item(string name)
         {
             Name = name;
-            HealingValue = healingValue;
         }
         public abstract void Use(Player player);
     }
     
     public class SmallHealthPotion : Item
     {
-      public SmallHealthPotion () : base("Small Health Potion", 10)
+        private int HealingValue = 10;
+        public SmallHealthPotion () : base("Small Health Potion")
         {
         }
         public override void Use(Player player)
@@ -38,34 +37,16 @@ namespace DungeonExplorer
         }
     }
 
-    public class RegularHealthPotion : Item
+
+    public class LargeHealthPotion : Item
     {
-        public RegularHealthPotion() : base("Regular Health Potion", 20)
+        private int HealingValue = 20;
+        public LargeHealthPotion() : base("Large Health Potion")
         {
         }
         public override void Use(Player player)
         {
             if (player.Health <= 80)
-            {
-                player.Health += HealingValue;
-                Console.WriteLine("You have used a Regular Health Potion.");
-                Console.WriteLine("Your health is now " + player.Health);
-            }
-            else
-            {
-                Console.WriteLine("Your health is too high.");
-            }
-        }
-    }
-
-    public class LargeHealthPotion : Item
-    {
-        public LargeHealthPotion() : base("Large Health Potion", 30)
-        {
-        }
-        public override void Use(Player player)
-        {
-            if (player.Health <= 70)
             {
                 player.Health += HealingValue;
                 Console.WriteLine("You have used a Large Health Potion.");
@@ -80,7 +61,8 @@ namespace DungeonExplorer
 
     public class Bandage : Item
     {
-        public Bandage() : base("Health Potion", 5)
+        private int HealingValue = 5;
+        public Bandage() : base("Health Potion")
         {
         }
         public override void Use(Player player)
@@ -95,6 +77,43 @@ namespace DungeonExplorer
             {
                 Console.WriteLine("Your health is too high.");
             }
+        }
+    }
+
+
+    public class Weapon : Item
+    {
+        public int DamageValue { get; set; }
+        public int HitChance { get; set; }
+        public Weapon(string name, int damageValue, int hitChance) : base(name)
+        {
+            DamageValue = damageValue;
+            HitChance = hitChance;
+        }
+        public override void Use(Player player)
+        {
+            Console.WriteLine($"{player.Name} has equipped the {Name}.");
+        }
+    }
+
+    public class Sword : Weapon
+    {
+        public Sword() : base("Sword", 15, 70)
+        {
+        }
+    }
+
+    public class Bow : Weapon
+    {
+        public Bow() : base("Bow", 10, 90)
+        {
+        }
+    }
+
+    public class Axe : Weapon
+    {
+        public Axe() : base("Axe", 20, 40)
+        {
         }
     }
 }

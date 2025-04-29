@@ -6,42 +6,54 @@ namespace DungeonExplorer
     public class Player : Creature
     {
 
-        private List<string> inventory;
+        public Inventory Inventory { get; set; }
+        public Weapon equippedWeapon { get; set; }
 
         // Constructor for the Player class and initializes the name, health, and inventory of the player
-        public Player(string Name, int Health, List<string> Inventory)
+        public Player(string Name, int Health)
             : base(Name, Health)
         {
-            this.inventory = Inventory;
+            Inventory = new Inventory();
+            equippedWeapon = null;
         }
 
-        // Gets the inventory of the player
-        public List<string> Inventory
+        
+        public void Attack(Monster monster)
         {
-            get { return inventory; }
-
-            set { inventory = value; }
-        }
-
-        // Method to pick up an item and add it to the inventory
-        public void PickUpItem(string item)
-        {
-            Inventory.Add(item);
-        }
-
-        // Method displays the contents of the inventory but if the inventory is empty, it will return "Nothing."
-        public string InventoryContents()
-        {
-            if (inventory.Count == 0)
+            if (equippedWeapon != null)
             {
-                return "Nothing.";
+                bool ContactHit = new Random().Next(0, 100) < equippedWeapon.HitChance;
+                if (ContactHit)
+                {
+                    Console.WriteLine($"You hit the {monster.Name} with your {equippedWeapon.Name}!");
+                    monster.Health -= equippedWeapon.DamageValue;
+                }
+                else
+                {
+                    Console.WriteLine($"You missed the {monster.Name} with your {equippedWeapon.Name}.");
+                }
             }
-            return string.Join(", ", inventory);
+            else
+            {
+                bool ContactHit = new Random().Next(0, 100) < 50; // Default hit chance
+                if (ContactHit)
+                {
+                    int FistDamage = 5;
+                    Console.WriteLine($"You hit the {monster.Name}!");
+                    monster.Health -= FistDamage; // Default damage value
+                }
+                else
+                {
+                    Console.WriteLine($"You missed the {monster.Name}.");
+                }
+            }
+
         }
+
 
         public override void Attack()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{Name} attacks!");
         }
     }
 }

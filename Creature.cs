@@ -43,7 +43,7 @@ namespace DungeonExplorer
 
             set
             {
-                if (value < 1 || value >= 100)
+                if (value < 1 || value > 100)
                 {
                     health = 0;
                 }

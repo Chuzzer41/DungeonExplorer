@@ -21,11 +21,14 @@ namespace DungeonExplorer
         public const string SmallHealthPotion = "Small Health Potion";
         public const string LargeHealthPotion = "Large Health Potion";
         public const string Bandage = "Bandage";
+        public const string Sword = "Sword";
+        public const string Bow = "Bow";
+        public const string Axe = "Axe";
 
         // Constructor for the game class that initializes a new game object.
         public Game()
         {
-            Player = new Player("", 100, new List<string>());
+            //Player = new Player("", 100, new List<string>());
             currentRoom = Room.RandomRoom();
             RoomNumber = 0;
             TotalRoomNumber = 5;
@@ -72,26 +75,40 @@ namespace DungeonExplorer
         public void ItemProbability()
         {
             Random rnd = new Random();
-            int random = rnd.Next(0, 5);
+            int random = rnd.Next(0, 10);
             switch (random)
             {
                 case 0:
-                    Player.Inventory.Add(SmallHealthPotion); // Adds a small health potion to the player's inventory.
+                    Player.Inventory.Add(new SmallHealthPotion()); // Adds a small health potion to the player's inventory.
                     Console.WriteLine("You have found a small health potion.");
                     break;
                 case 1:
-                    Player.Inventory.Add(LargeHealthPotion); // Adds a large health potion to the player's inventory.
+                    Player.Inventory.Add(new LargeHealthPotion()); // Adds a large health potion to the player's inventory.
                     Console.WriteLine("You have found a large health potion.");
                     break;
                 case 2:
-                    Player.Inventory.Add(Bandage); // Adds a bandage to the player's inventory.
+                    Player.Inventory.Add(new Bandage()); // Adds a bandage to the player's inventory.
                     Console.WriteLine("You have found a bandage.");
                     break;
                 // If the random number is 3, 4, 5 or 6, the player will not find an item in the room.
                 case 3:
+                    Player.Inventory.Add(new Sword()); // Adds a sword to the player's inventory.
+                    Console.WriteLine("You have found a sword.");
+                    break;
                 case 4:
+                    Player.Inventory.Add(new Bow()); // Adds a bow to the player's inventory.
+                    Console.WriteLine("You have found a bow.");
+                    break;
                 case 5:
+                    Player.Inventory.Add(new Axe()); // Adds an axe to the player's inventory.
+                    Console.WriteLine("You have found an axe.");
+                    break;
                 case 6:
+                case 7:
+                case 8: 
+                case 9: 
+                case 10: 
+                case 11:
                     break;
             }
         }
@@ -99,85 +116,155 @@ namespace DungeonExplorer
         // Method that allows the player to use an item from their inventory.
         public void ItemUse()
         {
-            Console.WriteLine("Which item would you like to use: bandage, small or large health potion (b, s, l)");
-            string item = Console.ReadLine().ToLower().Trim();
-            switch (item)
+            Console.WriteLine("Do you want to use health items or equip weapons (h, w):");
+            string Item = Console.ReadLine().ToLower().Trim();
+            switch (Item)
             {
-                // If the player can use a small health potion, their health will increase by 10.
-                case "s":
-                    if (Player.Inventory.Contains(SmallHealthPotion))
+                case "h":
+                    Console.WriteLine("Which item would you like to use: bandage, small or large health potion (b, s, l)");
+                    string HealthItem = Console.ReadLine().ToLower().Trim();
+                    switch (HealthItem)
                     {
-                        if (!(Player.Health > 90))
-                        {
-                            Player.Health += 10;
-                            Player.Inventory.Remove(SmallHealthPotion); // Removes the item from the player's inventory.
-                            Console.WriteLine("You have used a small health potion.");
-                            Console.WriteLine("Your health is now " + Player.Health);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Your health is too high.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("You do not have a small health potion.");
+                        // If the player can use a small health potion, their health will increase by 10.
+                        case "s":
+                            if (Player.Inventory.Contains(SmallHealthPotion))
+                            {
+                                if (!(Player.Health > 90))
+                                {
+                                    Player.Health += 10;
+                                    Player.Inventory.Remove(SmallHealthPotion); // Removes the item from the player's inventory.
+                                    Console.WriteLine("You have used a small health potion.");
+                                    Console.WriteLine("Your health is now " + Player.Health);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Your health is too high.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("You do not have a small health potion.");
+                            }
+                            break;
+
+                        // If the player can use a large health potion, their health will increase by 20.
+                        case "l":
+                            if (Player.Inventory.Contains(LargeHealthPotion))
+                            {
+                                if (!(Player.Health > 80))
+                                {
+                                    Player.Health += 20;
+                                    Player.Inventory.Remove(LargeHealthPotion); // Removes the item from the player's inventory.
+                                    Console.WriteLine("You have used a large health potion.");
+                                    Console.WriteLine("Your health is now " + Player.Health);
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Your health is too high.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("You do not have a large health potion.");
+                            }
+                            break;
+
+                        // If the player can use a bandage, their health will increase by 5.
+                        case "b":
+                            if (Player.Inventory.Contains(Bandage))
+                            {
+                                Console.WriteLine(Player.Health);
+                                if (!(Player.Health > 95))
+                                {
+                                    Player.Health += 5;
+                                    Player.Inventory.Remove(Bandage); // Removes the item from the player's inventory.
+                                    Console.WriteLine("You have used a bandage.");
+                                    Console.WriteLine("Your health is now " + Player.Health);
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Your health is too high.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("You do not have a bandage.");
+                            }
+                            break;
+
+
+                        default:
+                            Console.WriteLine("Invalid input. Press any button to continue.");
+                            Console.ReadKey();
+                            break;
                     }
                     break;
 
-                // If the player can use a large health potion, their health will increase by 20.
-                case "l":
-                    if (Player.Inventory.Contains(LargeHealthPotion))
+                case "w":
+                    Console.WriteLine("Which weapon would you like to equip: sword, bow, axe (s, b, a)");
+                    string Weapon = Console.ReadLine().ToLower().Trim();
+                    switch (Weapon)
                     {
-                        if (!(Player.Health > 80))
-                        {
-                            Player.Health += 20;
-                            Player.Inventory.Remove(LargeHealthPotion); // Removes the item from the player's inventory.
-                            Console.WriteLine("You have used a large health potion.");
-                            Console.WriteLine("Your health is now " + Player.Health);
+                        case "s":
+                            if (Player.Inventory.Contains(Sword))
+                            {
+                                Player.equippedWeapon = new Sword();
+                                Player.Inventory.Remove(Sword); // Removes the item from the player's inventory.
+                                Console.WriteLine("You have equipped a sword.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("You do not have a sword.");
+                            }
 
-                        }
-                        else
-                        {
-                            Console.WriteLine("Your health is too high.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("You do not have a large health potion.");
+                            break;
+
+                        case "b":
+                            if (Player.Inventory.Contains(Bow))
+                            {
+                                Player.equippedWeapon = new Bow();
+                                Player.Inventory.Remove(Bow); // Removes the item from the player's inventory.
+                                Console.WriteLine("You have equipped a bow.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("You do not have a bow.");
+                            }
+
+
+                            break;
+
+                        case "a":
+                           if (Player.Inventory.Contains(Axe))
+                            {
+                                Player.equippedWeapon = new Axe();
+                                Player.Inventory.Remove(Axe); // Removes the item from the player's inventory.
+                                Console.WriteLine("You have equipped an axe.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("You do not have an axe.");
+                            }
+
+
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid input. Press any button to continue.");
+                            Console.ReadKey();
+                            break;
                     }
                     break;
-
-                // If the player can use a bandage, their health will increase by 5.
-                case "b":
-                    if (Player.Inventory.Contains(Bandage))
-                    {
-                        Console.WriteLine(Player.Health);
-                        if (!(Player.Health > 95))
-                        {
-                            Player.Health += 5;
-                            Player.Inventory.Remove(Bandage); // Removes the item from the player's inventory.
-                            Console.WriteLine("You have used a bandage.");
-                            Console.WriteLine("Your health is now " + Player.Health);
-
-                        }
-                        else
-                        {
-                            Console.WriteLine("Your health is too high.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("You do not have a bandage.");
-                    }
-                    break;
-
 
                 default:
                     Console.WriteLine("Invalid input. Press any button to continue.");
                     Console.ReadKey();
                     break;
+
             }
+ 
         }
 
         // Method that allows the player to view their health, inventory and allows them to use an item.
@@ -201,7 +288,7 @@ namespace DungeonExplorer
                         Console.WriteLine("Your health is " + Player.Health); break; // Displays the player's health.
                     case "inventory":
                         Console.WriteLine("Your inventory contains: ");
-                        Console.WriteLine(Player.InventoryContents()); // Displays the contents of the player's inventory.
+                        Console.WriteLine(Player.Inventory.ListContents()); // Displays the contents of the player's inventory.
                         break;
                     case "item":
                         ItemUse(); // Calls the method for the player to use an item from their inventory.
@@ -321,9 +408,8 @@ namespace DungeonExplorer
                 // Initializes the player object and sets the player's name, health and inventory.
                 Console.WriteLine("Please enter your name:");
                 string name = Console.ReadLine();
-                Player.Name = name;
+                Player = new Player(name, 100);
                 Player.Health = 100;
-                Player.Inventory = new List<string>();
 
                 GameRules(); // Gives the user the option to view the rules of the game.
                 SelectGameDifficulty(); // Allows the player to select the difficulty of the game.
