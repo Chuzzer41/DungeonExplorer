@@ -40,6 +40,11 @@ namespace DungeonExplorer
             }
             return string.Join(", ", items.Select(i => i.Name));
         }
+
+        public IReadOnlyList<Item> Items
+        {
+            get { return items.AsReadOnly(); }
+        }
     }
 }
 
