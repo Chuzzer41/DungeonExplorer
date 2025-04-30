@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
+    // The Creature class is an abstract class that represents a creature in the game
     public abstract class Creature
     {
+        // Properties for the Creature class
         private string name;
         private int health;
 
+        // Constructor for the Creature class and initializes the name and health of the creature
         public Creature(string name, int health)
         {
             Name = name;
@@ -18,6 +21,7 @@ namespace DungeonExplorer
 
         }
 
+        // Method to set the name of the creature
         public string Name
         {
             get { return name; }
@@ -37,6 +41,7 @@ namespace DungeonExplorer
             }
         }
 
+        // Method to set the health of the creature
         public int Health
         {
             get { return health; }

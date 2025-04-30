@@ -8,11 +8,13 @@ namespace DungeonExplorer
 
         private static Random rnd = new Random();
 
+        // Constructor for the Room class
         public Room(Monster monster)
         {
             this.monster = monster;
         }
 
+        // Randomly generates a room with a monster or empty room
         public static Room RandomRoom()
         {
             int random = rnd.Next(0, 14);
@@ -44,19 +46,21 @@ namespace DungeonExplorer
         }
 
 
-
+        // Method to get the room description and handle monster encounters
         public void GetRoomDescription(Player player, ref int RoomNumber)
         {
             RoomDescription(); // Calls the RoomDescription method to display a description of the room
-            
 
+            // Checks if the room contains a monster
             if (monster != null)
             {
                 Console.WriteLine("");
                 Console.WriteLine($"A {monster.Name} blocks your way.");
 
+                // Loops until the monster or player is defeated
                 while (monster.Health > 0 && player.Health > 0)
                 {
+                    // Displays the current health of the player and monster
                     Console.WriteLine("");
                     Console.WriteLine($"You have {player.Health} health left.");
                     Console.WriteLine($"The {monster.Name} has {monster.Health} health left.");
@@ -65,17 +69,20 @@ namespace DungeonExplorer
                     Console.ReadKey();
                     Console.WriteLine("");
 
-
+                    // Player attacks the monster
                     player.Attack(monster);
 
+                    // Checks if the monster is defeated
                     if (monster.Health <= 0)
                     {
+                        // If the monster is defeated, it drops loot and displays a message
                         Console.WriteLine($"You defeated the {monster.Name}!");
                         Console.WriteLine("");
                         break;
                     }
                     else
                     {
+                        // If the monster is still alive, it attacks the player
                         monster.Attack(player);
                         if (player.Health <= 0)
                         {

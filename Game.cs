@@ -13,6 +13,7 @@ namespace DungeonExplorer
         private Player player;
         private Room currentRoom;
 
+        // Properties for the Game class
         private Player Player;
         private int RoomNumber;
         private int TotalRoomNumber;
@@ -172,10 +173,12 @@ namespace DungeonExplorer
         // Method that allows the player to use an item from their inventory.
         public void ItemUse()
         {
+            // Gives the player the option to use a health item or equip a weapon.
             Console.WriteLine("Do you want to use health items or equip weapons (h, w):");
             string Item = Console.ReadLine().ToLower().Trim();
             switch (Item)
             {
+                // If the player chooses to use a health item, they will be prompted to select which item they want to use.
                 case "h":
                     Console.WriteLine("Which item would you like to use: bandage, small or large health potion (b, s, l)");
                     string HealthItem = Console.ReadLine().ToLower().Trim();
@@ -258,12 +261,14 @@ namespace DungeonExplorer
                     }
                     break;
 
+                // If the player chooses to equip a weapon, they will be prompted to select which weapon they want to equip.
                 case "w":
                     Console.WriteLine("Which weapon would you like to equip: sword, bow, axe (s, b, a)");
                     string Weapon = Console.ReadLine().ToLower().Trim();
                     switch (Weapon)
                     {
                         case "s":
+                            // If the player can equip a sword, the sword will be equipped and removed from the player's inventory.
                             if (Player.Inventory.Contains(Sword))
                             {
                                 Player.equippedWeapon = new Sword();
@@ -278,6 +283,7 @@ namespace DungeonExplorer
                             break;
 
                         case "b":
+                            // If the player can equip a bow, the bow will be equipped and removed from the player's inventory.
                             if (Player.Inventory.Contains(Bow))
                             {
                                 Player.equippedWeapon = new Bow();
@@ -293,7 +299,8 @@ namespace DungeonExplorer
                             break;
 
                         case "a":
-                           if (Player.Inventory.Contains(Axe))
+                            // If the player can equip an axe, the axe will be equipped and removed from the player's inventory.
+                            if (Player.Inventory.Contains(Axe))
                             {
                                 Player.equippedWeapon = new Axe();
                                 Player.Inventory.Remove(Axe); // Removes the item from the player's inventory.
@@ -308,6 +315,7 @@ namespace DungeonExplorer
                             break;
 
                         default:
+                            // If the player enters an invalid input, it will display an error message.
                             Console.WriteLine("Invalid input. Press any button to continue.");
                             Console.ReadKey();
                             break;
@@ -315,6 +323,7 @@ namespace DungeonExplorer
                     break;
 
                 default:
+                    // If the player enters an invalid input, it will display an error message.
                     Console.WriteLine("Invalid input. Press any button to continue.");
                     Console.ReadKey();
                     break;
@@ -480,6 +489,8 @@ namespace DungeonExplorer
                     string CorrectDirection = Map.GetCorrectDirection(RoomNumber); // Gets the room description from the map.
                     PlayersDecision(); // Allows the player to make a decision on which direction to go.
 
+                    // If the player chooses the correct direction, they will be able to continue to the next room.
+                    // If the player chooses the wrong direction, they will be prompted to go back and try a different direction.
                     Console.WriteLine("");
                     if (CorrectDirection == DirectionChosen)
                     {

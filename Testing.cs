@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
+    // The Testing class contains methods to test the functionality of the game classes
     public static class Testing
     {
-
+        // Method to test the Player class
         public static void PlayerTests()
         {
             Console.WriteLine("Testing Player class");
@@ -25,12 +26,14 @@ namespace DungeonExplorer
             Console.WriteLine("No issues");
         }
 
+        // Method to test the inventory functionality
         public static void InventoryTests()
         {
             Console.WriteLine("Testing Inventory class");
 
             Player player = new Player("TestPlayer", 100);
 
+            // Test adding and removing items from the inventory
             SmallHealthPotion smallPotion = new SmallHealthPotion();
             smallPotion.PickUp(player);
             Debug.Assert(player.Inventory.Items.Count == 1, "Test Failed: Inventory should contain 1 item after picking up a potion");
@@ -41,6 +44,7 @@ namespace DungeonExplorer
             Debug.Assert(!player.Inventory.Contains("Small Health Potion"), "Test Failed: Inventory should not contain 'Small Health Potion' after removal");
             Debug.Assert(player.Inventory.ListContents() == "Nothing.", "Test Failed: Inventory should be empty");
 
+            // Test using health items
             LargeHealthPotion largePotion = new LargeHealthPotion();
             largePotion.PickUp(player);
             player.Health = 50;
@@ -60,11 +64,12 @@ namespace DungeonExplorer
             Console.WriteLine("No issues");
         }
 
-
+        // Method to test the Room class
         public static void RoomTests()
         {
             Console.WriteLine("Testing Room class");
 
+            // Test creating a room with a monster
             Player player = new Player("TestPlayer", 100);
             Monster monster = new Monster("TestMonster", 50, "TestType");
             Room room = new Room(monster);
@@ -73,13 +78,14 @@ namespace DungeonExplorer
             room.GetRoomDescription(player, ref roomNumber);
             Debug.Assert(monster != null, "Test Failed: Monster should not be null");
 
+            // Test creating a room without a monster
             Room room1 = Room.RandomRoom();
             Debug.Assert(room1 != null, "Test Failed: Random room should not be null");
 
             Room room2 = new Room(null);
             room2.GetRoomDescription(player, ref roomNumber);
 
-
+            // Test equipping a weapon
             Player player1 = new Player("TestPlayer", 100);
             Weapon sword = new Weapon("Sword", 10, 80);
             player1.equippedWeapon = sword;
