@@ -15,19 +15,28 @@ namespace DungeonExplorer
 
         public static Room RandomRoom()
         {
-            int random = rnd.Next(0, 7);
+            int random = rnd.Next(0, 14);
             switch (random)
             {
                 case 0:
                 case 1:
-                    return new Room(new SmallMonster("Small Monster", 10));
                 case 2:
                 case 3:
-                    return new Room(new RegularMonster("Regular Monster", 20));
+                    return new Room(new SmallMonster("Small Monster", 10));
                 case 4:
-                    return new Room(new LargeMonster("Large Monster", 30));
                 case 5:
                 case 6:
+                    return new Room(new RegularMonster("Regular Monster", 20));
+                case 7:
+                    return new Room(new LargeMonster("Large Monster", 30));
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
                     return new Room(null);
                 default:
                     return new Room(null);
@@ -43,15 +52,18 @@ namespace DungeonExplorer
 
             if (monster != null)
             {
+                Console.WriteLine("");
                 Console.WriteLine($"A {monster.Name} blocks your way.");
 
                 while (monster.Health > 0 && player.Health > 0)
                 {
+                    Console.WriteLine("");
                     Console.WriteLine($"You have {player.Health} health left.");
                     Console.WriteLine($"The {monster.Name} has {monster.Health} health left.");
 
                     Console.WriteLine("Press any key to attack the monster.");
                     Console.ReadKey();
+                    Console.WriteLine("");
 
 
                     player.Attack(monster);
@@ -59,6 +71,7 @@ namespace DungeonExplorer
                     if (monster.Health <= 0)
                     {
                         Console.WriteLine($"You defeated the {monster.Name}!");
+                        Console.WriteLine("");
                         break;
                     }
                     else
@@ -134,7 +147,7 @@ namespace DungeonExplorer
                         Console.WriteLine("You hear heavy footsteps before a beast steps into view.");
                         break;
                     case 4:
-                        Console.WriteLine("A large, imposing monster approaches, its claws scraping the floor.");
+                        Console.WriteLine("A imposing monster approaches, its claws scraping the floor.");
                         break;
                     case 5:
                         Console.WriteLine("The floor trembles as a powerful creature steps into the light, ready to attack.");

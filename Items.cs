@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    public abstract class Item
+    public abstract class Item : IUsable, ICollectible
     {
         public string Name { get; set; }
         public Item(string name)
@@ -14,8 +14,16 @@ namespace DungeonExplorer
             Name = name;
         }
         public abstract void Use(Player player);
+
+        public void PickUp(Player player)
+        {
+            player.Inventory.Add(this);
+            Console.WriteLine($"{Name} has been added to your inventory.");
+        }
     }
-    
+
+
+
     public class SmallHealthPotion : Item
     {
         private int HealingValue = 10;
@@ -62,7 +70,7 @@ namespace DungeonExplorer
     public class Bandage : Item
     {
         private int HealingValue = 5;
-        public Bandage() : base("Health Potion")
+        public Bandage() : base("Bandage")
         {
         }
         public override void Use(Player player)
@@ -98,21 +106,21 @@ namespace DungeonExplorer
 
     public class Sword : Weapon
     {
-        public Sword() : base("Sword", 15, 70)
+        public Sword() : base("Sword", 15, 80)
         {
         }
     }
 
     public class Bow : Weapon
     {
-        public Bow() : base("Bow", 10, 90)
+        public Bow() : base("Bow", 10, 95)
         {
         }
     }
 
     public class Axe : Weapon
     {
-        public Axe() : base("Axe", 20, 40)
+        public Axe() : base("Axe", 20, 75)
         {
         }
     }

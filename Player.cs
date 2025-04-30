@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
-    public class Player : Creature
+    public class Player : Creature, IDamageable
     {
 
         public Inventory Inventory { get; set; }
@@ -20,6 +20,7 @@ namespace DungeonExplorer
         
         public void Attack(Monster monster)
         {
+            Console.WriteLine("");
             if (equippedWeapon != null)
             {
                 bool ContactHit = new Random().Next(0, 100) < equippedWeapon.HitChance;
@@ -35,7 +36,7 @@ namespace DungeonExplorer
             }
             else
             {
-                bool ContactHit = new Random().Next(0, 100) < 50; // Default hit chance
+                bool ContactHit = new Random().Next(0, 100) < 80; // Default hit chance
                 if (ContactHit)
                 {
                     int FistDamage = 5;
@@ -48,6 +49,19 @@ namespace DungeonExplorer
                 }
             }
 
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
+            if (Health <= 0)
+            {
+                Console.WriteLine($"{Name} has been defeated!");
+            }
+            else
+            {
+                Console.WriteLine($"{Name} took {damage} damage and has {Health} health left.");
+            }
         }
 
 

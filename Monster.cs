@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    public class Monster : Creature
+    public class Monster : Creature, IDamageable
     {
         public string Type { get; set; }
         public int Health { get; set; }
@@ -39,6 +39,18 @@ namespace DungeonExplorer
             }
         }
 
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
+            if (Health <= 0)
+            {
+                Console.WriteLine($"{Name} has been defeated!");
+            }
+            else
+            {
+                Console.WriteLine($"{Name} has {Health} health remaining.");
+            }
+        }
 
         public virtual int GetDamage()
         {
@@ -65,7 +77,7 @@ namespace DungeonExplorer
             // SmallMonster specific attack logic
             Random random = new Random();
 
-            bool ContactHit = new Random().Next(0, 100) < 30;
+            bool ContactHit = new Random().Next(0, 100) < 70;
             if (ContactHit)
             {
                 int damage = GetDamage();
@@ -95,7 +107,7 @@ namespace DungeonExplorer
         {
             // RegularMonster specific attack logic
             Random random = new Random();
-            bool ContactHit = new Random().Next(0, 100) < 50;
+            bool ContactHit = new Random().Next(0, 100) < 90;
             if (ContactHit)
             {
                 int damage = GetDamage();
@@ -118,14 +130,14 @@ namespace DungeonExplorer
         public override int GetDamage()
         {
             Random random = new Random();
-            return random.Next(15, 30);
+            return random.Next(15, 20);
         }
 
         public override void Attack(Player player)
         {
             // LargeMonster specific attack logic
             Random random = new Random();
-            bool ContactHit = new Random().Next(0, 100) < 70;
+            bool ContactHit = new Random().Next(0, 100) < 80;
             if (ContactHit)
             {
                 int damage = GetDamage();

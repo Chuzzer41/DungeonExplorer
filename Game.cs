@@ -79,40 +79,92 @@ namespace DungeonExplorer
         public void ItemProbability()
         {
             Random rnd = new Random();
-            int random = rnd.Next(0, 10);
+            int random = rnd.Next(0, 26);
             switch (random)
             {
                 case 0:
+                case 1:
+                case 2:
                     Player.Inventory.Add(new SmallHealthPotion()); // Adds a small health potion to the player's inventory.
                     Console.WriteLine("You have found a small health potion.");
                     break;
-                case 1:
+                case 3:
+                case 4:
+                case 5:
                     Player.Inventory.Add(new LargeHealthPotion()); // Adds a large health potion to the player's inventory.
                     Console.WriteLine("You have found a large health potion.");
                     break;
-                case 2:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
                     Player.Inventory.Add(new Bandage()); // Adds a bandage to the player's inventory.
                     Console.WriteLine("You have found a bandage.");
                     break;
-                // If the random number is 3, 4, 5 or 6, the player will not find an item in the room.
-                case 3:
+                case 10:
                     Player.Inventory.Add(new Sword()); // Adds a sword to the player's inventory.
                     Console.WriteLine("You have found a sword.");
                     break;
-                case 4:
+                case 11:
                     Player.Inventory.Add(new Bow()); // Adds a bow to the player's inventory.
                     Console.WriteLine("You have found a bow.");
                     break;
-                case 5:
+                case 12:
                     Player.Inventory.Add(new Axe()); // Adds an axe to the player's inventory.
                     Console.WriteLine("You have found an axe.");
                     break;
-                case 6:
-                case 7:
-                case 8: 
-                case 9: 
-                case 10: 
-                case 11:
+
+                case 13:
+                    Player.Inventory.Add(new SmallHealthPotion()); // Adds a small health potion to the player's inventory.
+                    Player.Inventory.Add(new Sword()); // Adds a sword to the player's inventory. 
+                    Console.WriteLine("You have found a small health potion and a sword.");
+                    break;
+                case 14:
+                    Player.Inventory.Add(new SmallHealthPotion()); // Adds a small health potion to the player's inventory.
+                    Player.Inventory.Add(new Bow()); // Adds a bow to the player's inventory.
+                    Console.WriteLine("You have found a small health potion and a bow.");
+                    break;
+                case 15:
+                    Player.Inventory.Add(new SmallHealthPotion()); // Adds a small health potion to the player's inventory.
+                    Player.Inventory.Add(new Axe()); // Adds an axe to the player's inventory.
+                    Console.WriteLine("You have found a small health potion and a axe.");
+                    break;
+                case 16:
+                    Player.Inventory.Add(new Bandage()); // Adds a bandage to the player's inventory.
+                    Player.Inventory.Add(new Sword()); // Adds a sword to the player's inventory.
+                    Console.WriteLine("You have found a bandage and a sword.");
+                    break;
+                case 17:
+                    Player.Inventory.Add(new Bandage()); // Adds a bandage to the player's inventory.
+                    Player.Inventory.Add(new Bow()); // Adds a bow to the player's inventory.
+                    Console.WriteLine("You have found a bandage and a bow.");
+                    break;
+                case 18:
+                    Player.Inventory.Add(new Bandage()); // Adds a bandage to the player's inventory.
+                    Player.Inventory.Add(new Axe()); // Adds an axe to the player's inventory.
+                    Console.WriteLine("You have found a bandage and a axe.");
+                    break;
+                case 19:
+                    Player.Inventory.Add(new LargeHealthPotion()); // Adds a large health potion to the player's inventory.
+                    Player.Inventory.Add(new SmallHealthPotion()); // Adds a small health potion to the player's inventory.
+                    Console.WriteLine("You have found a large health potion and a small health potion.");
+                    break;
+                case 20:
+                    Player.Inventory.Add(new LargeHealthPotion()); // Adds a large health potion to the player's inventory.
+                    Player.Inventory.Add(new Bandage()); // Adds a bandage to the player's inventory.
+                    Console.WriteLine("You have found a large health potion and a bandage.");
+                    break;
+                case 21:
+                case 22:
+                    Player.Inventory.Add(new SmallHealthPotion()); // Adds a small health potion to the player's inventory.
+                    Player.Inventory.Add(new Bandage()); // Adds a bandage to the player's inventory.
+                    Console.WriteLine("You have found a small health potion and a bandage.");
+                    break;
+                case 23:
+                case 24:
+                case 25:
+                case 26:
+                case 27:
                     break;
             }
         }
@@ -362,14 +414,12 @@ namespace DungeonExplorer
                     Console.WriteLine("Medium - 10 rooms");
                     Console.WriteLine("Hard - 20 rooms\n");
                     Console.WriteLine("There are 3 different monsters.");
-                    Console.WriteLine("Small monster - 1-10 damage");
-                    Console.WriteLine("Regular monster - 10-20 damage");
-                    Console.WriteLine("Big monster - 20-30 damage\n");
+                    Console.WriteLine("Small monster, Regular monster, Large Monster");
+                    Console.WriteLine("They each do a different amount of damage and probability of hitting\n");
                     Console.WriteLine("You will have a chance to find items in the rooms.");
-                    Console.WriteLine("Small health potion - +10 health");
-                    Console.WriteLine("Large health potion - +20 health");
-                    Console.WriteLine("Bandage - +5 health\n");
-                    Console.WriteLine("You will have to make it through all the rooms to win.");
+                    Console.WriteLine("Health Potions and weapons");
+                    Console.WriteLine("Each type of weapon has differnt characteristics");
+                    Console.WriteLine("You will have to make it through all the rooms to win and there is a correct path.");
                     Console.WriteLine("If your health reaches 0 you will die.");
                     Console.WriteLine("Good luck.");
                     Console.WriteLine("Press any key to continue.");
@@ -430,6 +480,7 @@ namespace DungeonExplorer
                     string CorrectDirection = Map.GetCorrectDirection(RoomNumber); // Gets the room description from the map.
                     PlayersDecision(); // Allows the player to make a decision on which direction to go.
 
+                    Console.WriteLine("");
                     if (CorrectDirection == DirectionChosen)
                     {
                         Console.WriteLine("You have chosen the correct direction.");

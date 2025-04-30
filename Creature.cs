@@ -27,8 +27,8 @@ namespace DungeonExplorer
                 if (string.IsNullOrEmpty(value))
                 {
                     Console.WriteLine("The name that has been entered is invaild.");
-                    Console.WriteLine("Defaulting to DefaultCreature");
-                    name = "DefaultCreature";
+                    Console.WriteLine("Defaulting to Default");
+                    name = "Default";
                 }
                 else
                 {
