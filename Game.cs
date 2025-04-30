@@ -16,6 +16,8 @@ namespace DungeonExplorer
         private Player Player;
         private int RoomNumber;
         private int TotalRoomNumber;
+        private GameMap Map;
+        public string DirectionChosen { get; set; } // Property to store the direction chosen by the player.
 
         // Constants for the items that the player can find in the rooms.
         public const string SmallHealthPotion = "Small Health Potion";
@@ -42,6 +44,8 @@ namespace DungeonExplorer
 
             string input = Console.ReadLine().ToLower().Trim();
             Console.WriteLine();
+
+            DirectionChosen = input; // Sets the direction chosen by the player.
 
             Room nextRoom;
             switch (input)
@@ -414,13 +418,29 @@ namespace DungeonExplorer
                 GameRules(); // Gives the user the option to view the rules of the game.
                 SelectGameDifficulty(); // Allows the player to select the difficulty of the game.
 
+                Map = new GameMap(TotalRoomNumber); // Initializes the game map.
+
+
                 // Game loop that continues until the player dies or passes the final room.
                 playing = false;
                 while (Player.Health > 0 && RoomNumber < TotalRoomNumber)
                 {
                     Console.WriteLine("You are in room " + (RoomNumber + 1));
 
+                    string CorrectDirection = Map.GetCorrectDirection(RoomNumber); // Gets the room description from the map.
                     PlayersDecision(); // Allows the player to make a decision on which direction to go.
+
+                    if (CorrectDirection == DirectionChosen)
+                    {
+                        Console.WriteLine("You have chosen the correct direction.");
+                        RoomNumber++; // Increments the room number.
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have chosen the wrong direction.");
+                        Console.WriteLine("You must go back and try a differnt direction.");
+                    }
+
                     PlayersRoundOptions(); // Allows the player to view their health, inventory and use an item.
                 }
 

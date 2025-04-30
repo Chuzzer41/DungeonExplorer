@@ -72,12 +72,10 @@ namespace DungeonExplorer
                     }
                 }
 
-                RoomNumber++;
             }
             else
             {
                 Console.WriteLine("You pass through an empty room.");
-                RoomNumber++;
             }
         }
 
