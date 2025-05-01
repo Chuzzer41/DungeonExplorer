@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    /// The Monster class is an abstract class that represents a monster in the game
+    // The Monster class is an abstract class that represents a monster in the game
     public class Monster : Creature, IDamageable
     {
         public string Type { get; set; }

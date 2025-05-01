@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-
-    // Test development 2 branch
     internal class Program
     {
         static void Main(string[] args)
